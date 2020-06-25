@@ -1,0 +1,29 @@
+smd double
+// sets the function up and testing if input exist
+mem 0
+// if input doesnt exist, input will be created and set to 0
+con = input
+// if input is does exist, then this will allow it to continue
+con true
+// increment input by 1
+swp input
+add 1
+swp input
+// sets memory to the first parameter index
+get input 
+mul 2
+sho mem
+// drops pmc(parameter count) by 1
+swp pmc
+sub 1
+swp pmc
+// deletes input variable when done
+mem 0
+con = pmc
+del input
+con true
+// resets the memory to 0
+mem 0
+emd
+
+dot double pmc :10 50 30 45

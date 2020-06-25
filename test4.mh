@@ -1,0 +1,4 @@
+mem 10
+var x
+get 1 :x 20
+sho mem
