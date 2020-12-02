@@ -308,22 +308,24 @@ begin
 
     pass_string := extractword(1,command,['\']); 
     if pass_string = 'sho ' then begin 
-        writeln(ExtractWord(2, command, ['\']));
+        write(ExtractWord(2, command, ['\']));
         exit;
     end;
 
     case parameter_1 of
         'var': self.get_variables;
-        'mem': writeln(memory: 0 : 2);
+        'mem': write(memory:0 : 2);
+        '-': writeln();
+        '_': write(' ');
         'mod': for s in self.functions do writeln(s);
         'all': 
         for i := 0 to self.variables.Count - 1 do begin
             if ansistartstext(parameter_2,self.variables.getkey(i)) then
-                writeln(self.variables.getkey(i), ' : ', self.variables.getdata(i): 0: 2);
+                writeln(self.variables.getkey(i), ' : ', self.variables.getdata(i):0: 2);
         end;
     else
         if self.variables.indexof(parameter_1) >= 0 then begin
-            writeln(self.variables.getdata(variables.indexof(parameter_1)):0 :2);
+            write(self.variables.getdata(variables.indexof(parameter_1)):0 :2);
         end;
 
         if self.function_modules.indexof(parameter_1) >= 0 then begin
@@ -348,7 +350,7 @@ begin
     read(user_input);
     // check to see if input is text or not
     if is_string_number(user_input) then
-      self.memory := strtofloat(user_input);
+      self.memory := trunc(strtofloat(user_input));
 
 end;
 
@@ -628,52 +630,67 @@ end;
 
 procedure mim_interpreter.parse(input_command: string);
 var
-    command,s: string;
+    list : array of string;
+    commands : integer;
+    command,s,line_command: string;
     i: integer = 0;
+    x : integer;
     parameter_0 : string;
 begin
-    command := lowercase(input_command);
-    self.load_parameters(command);
-    self.load_return(command);
-    if (self.global_recording) then begin
-        case ExtractWord(1, command, [' ']) of
-            'emd': self._emd(command);
-            'smd': self._smd(command);
-        else 
-             //adds commands to a new function 
-             self.function_modules[self.current_module].add(command);
-        end;
-    end else begin
-        //check to see if the condition is true or false(bypass if false or if command is 'con')
-        if (self.current_condition) or (ExtractWord(1, command, [' ']) = 'con') then begin
-            case ExtractWord(1, command, [' ']) of
-                'mem': self._mem(command);
-                'var': self._var(command);
-                'add': self._add(command);
-                'sub': self._sub(command);
-                'mul': self._mul(command);
-                'div': self._div(command);
-                'swp': self._swp(command);
-                'con': self._con(command);
-                'smd': self._smd(command);
-                'emd': self._emd(command);
-                'dot': self._dot(command);
-                'sho': self._sho(command);
-                'del': self._del(command);
-                'rnd': self._rnd(command);
-                'get': self._get(command);
-                'inp': self._inp(command);
-                '///' : //skip comments;
-            end;
-            // parsing functions
-            parameter_0 := self.load_array(ExtractWord(1, command, [' ']));
-            //writeln('first parameter -> ',parameter_0);
-            if self.function_modules.indexof(parameter_0) >= 0 then begin
-                for s in self.function_modules[parameter_0] do begin
-                    self.parse(s);
-                end;
-            end;
-        end;
+
+    line_command := lowercase(input_command);
+
+    commands := wordcount(line_command,['&']);
+    setlength(list,commands);
+    //writeln(length(list));
+
+    for x := 1 to length(list) do begin
+      //writeln('loop number : ', x);
+      command := extractword(x,line_command,['&']);
+      //writeln(command);
+      self.load_parameters(command);
+      self.load_return(command);
+
+      if (self.global_recording) then begin
+          case ExtractWord(1, command, [' ']) of
+              'emd': self._emd(command);
+              'smd': self._smd(command);
+          else 
+               //adds commands to a new function 
+               self.function_modules[self.current_module].add(command);
+          end;
+      end else begin
+          //check to see if the condition is true or false(bypass if false or if command is 'con')
+          if (self.current_condition) or (ExtractWord(1, command, [' ']) = 'con') then begin
+              case ExtractWord(1, command, [' ']) of
+                  'mem': self._mem(command);
+                  'var': self._var(command);
+                  'add': self._add(command);
+                  'sub': self._sub(command);
+                  'mul': self._mul(command);
+                  'div': self._div(command);
+                  'swp': self._swp(command);
+                  'con': self._con(command);
+                  'smd': self._smd(command);
+                  'emd': self._emd(command);
+                  'dot': self._dot(command);
+                  'sho': self._sho(command);
+                  'del': self._del(command);
+                  'rnd': self._rnd(command);
+                  'get': self._get(command);
+                  'inp': self._inp(command);
+                  '///' : //skip comments;
+              end;
+              // parsing functions
+              parameter_0 := self.load_array(ExtractWord(1, command, [' ']));
+              //writeln('first parameter -> ',parameter_0);
+              if self.function_modules.indexof(parameter_0) >= 0 then begin
+                  for s in self.function_modules[parameter_0] do begin
+                      self.parse(s);
+                  end;
+              end;
+          end;
+      end;
     end;
 end;
 
