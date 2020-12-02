@@ -51,6 +51,7 @@ type
         procedure _del(command: string);
         procedure _rnd(command: string);
         procedure _get(command: string);
+        procedure _inp(command: string);
     public
         function variable_str(): string;
         constructor Create();
@@ -224,9 +225,7 @@ begin
                 if ansistartstext(parameter_1,s) then
                     self.parameters_id.add(parameter_1);
             end;
-
         end;
-
     end;
 
 
@@ -335,7 +334,24 @@ begin
         exit;
     end;
 end;
-//array done
+
+procedure mim_interpreter._inp(command: string);
+var
+    parameter_1 : string;
+    user_input : string;
+begin
+    parameter_1 := self.load_array(extractword(2,command,['\']));
+
+    // show prompt
+    write(parameter_1);
+
+    read(user_input);
+    // check to see if input is text or not
+    if is_string_number(user_input) then
+      self.memory := strtofloat(user_input);
+
+end;
+
 procedure mim_interpreter._mem(command: string);
 var
     parameter_1 : string;
@@ -646,6 +662,7 @@ begin
                 'del': self._del(command);
                 'rnd': self._rnd(command);
                 'get': self._get(command);
+                'inp': self._inp(command);
                 '///' : //skip comments;
             end;
             // parsing functions
