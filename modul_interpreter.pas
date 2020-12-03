@@ -296,36 +296,44 @@ end;
 //array done
 procedure mim_interpreter._sho(command: string);
 var
-    i : integer;
+    i,split_number,x : integer;
     s, r: string;
     parameter_1 : string;
     parameter_2 : string;
     pass_string : string;
+    string_build : string;
+    splits      : array of string;
 begin
     parameter_1 := self.load_array(extractword(2,command,[' '])); 
     parameter_2 := self.load_array(extractword(3,command,[' '])); 
     //writeln('parameter one sho command ',parameter_1);
-
+    
     pass_string := extractword(1,command,['\']); 
     if pass_string = 'sho ' then begin 
-        write(ExtractWord(2, command, ['\']));
+        string_build := extractword(2,command,['\']);
+        for x := 2 to wordcount(command,['\']) do begin
+        if self.variables.indexof(ExtractWord(x, command, ['\'])) >= 0 then 
+          write(self.variables.getdata(variables.indexof(ExtractWord(x, command, ['\']))):0:0)
+        else 
+          write(ExtractWord(x, command, ['\']))
+        end;
         exit;
     end;
 
     case parameter_1 of
         'var': self.get_variables;
-        'mem': write(memory:0 : 2);
+        'mem': write(self.memory:0:0);
         '-': writeln();
         '_': write(' ');
         'mod': for s in self.functions do writeln(s);
         'all': 
         for i := 0 to self.variables.Count - 1 do begin
             if ansistartstext(parameter_2,self.variables.getkey(i)) then
-                writeln(self.variables.getkey(i), ' : ', self.variables.getdata(i):0: 2);
+                writeln(self.variables.getkey(i), ' : ', self.variables.getdata(i):0:1);
         end;
     else
         if self.variables.indexof(parameter_1) >= 0 then begin
-            write(self.variables.getdata(variables.indexof(parameter_1)):0 :2);
+            write(self.variables.getdata(variables.indexof(parameter_1)):0:0);
         end;
 
         if self.function_modules.indexof(parameter_1) >= 0 then begin
@@ -335,6 +343,7 @@ begin
         end;
         exit;
     end;
+
 end;
 
 procedure mim_interpreter._inp(command: string);
@@ -630,21 +639,15 @@ end;
 
 procedure mim_interpreter.parse(input_command: string);
 var
-    list : array of string;
     commands : integer;
     command,s,line_command: string;
     i: integer = 0;
     x : integer;
     parameter_0 : string;
 begin
-
     line_command := lowercase(input_command);
 
-    commands := wordcount(line_command,['&']);
-    setlength(list,commands);
-    //writeln(length(list));
-
-    for x := 1 to length(list) do begin
+    for x := 1 to wordcount(line_command,['&']) do begin
       //writeln('loop number : ', x);
       command := extractword(x,line_command,['&']);
       //writeln(command);
@@ -679,7 +682,9 @@ begin
                   'rnd': self._rnd(command);
                   'get': self._get(command);
                   'inp': self._inp(command);
-                  '///' : //skip comments;
+                  '-'  : writeln();
+                  '_'  : write(' ');
+                  '#' : //skip comments;
               end;
               // parsing functions
               parameter_0 := self.load_array(ExtractWord(1, command, [' ']));

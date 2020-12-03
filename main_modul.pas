@@ -40,7 +40,6 @@ begin
             SaveString(mim.variable_str,'mim_log.mh')
         end;
     end;
-    writeln();
     //writeln(mim.get_memory: 0: 2);
 
     CloseFile(setup_file);
