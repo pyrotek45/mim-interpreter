@@ -23,6 +23,7 @@ type
 
     mim_interpreter = class
     private
+        user_input: string;
         memory: extended;
         parameters : floatlist;
         parameters_id : stringlist;
@@ -349,17 +350,16 @@ end;
 procedure mim_interpreter._inp(command: string);
 var
     parameter_1 : string;
-    user_input : string;
 begin
-    parameter_1 := self.load_array(extractword(2,command,['\']));
+    parameter_1 := extractword(2,command,['\']);
 
     // show prompt
     write(parameter_1);
 
-    read(user_input);
+    readln(self.user_input);
     // check to see if input is text or not
-    if is_string_number(user_input) then
-      self.memory := trunc(strtofloat(user_input));
+    if is_string_number(self.user_input) then
+      self.memory := strtofloat(self.user_input);
 
 end;
 
