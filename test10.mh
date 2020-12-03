@@ -1,7 +1,0 @@
-mem 5
-var x*5
-var y11
-
-sho var
-sho 1*5 :x y z
-

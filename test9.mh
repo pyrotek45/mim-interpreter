@@ -1,6 +1,0 @@
-var x
-con ? x
-sho \it exist!
-con true
-
-
