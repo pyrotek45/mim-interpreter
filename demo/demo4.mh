@@ -1,0 +1,15 @@
+mem 5
+var x
+
+mem 0
+swp x
+sho mem
+-
+sho x
+-
+
+mem 10
+swp y
+sho mem
+-
+sho y

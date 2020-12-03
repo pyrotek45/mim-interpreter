@@ -1,0 +1,6 @@
+inp \how old are you? &var age&sho \YOU ARE \age\ YEARS OLD!
+
+mem 9&var x&mem 0&-
+
+get 1 :x&sho mem
+

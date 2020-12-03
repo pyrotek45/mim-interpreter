@@ -1,0 +1,5 @@
+mem 5
+sho mem
+-
+var x
+sho x

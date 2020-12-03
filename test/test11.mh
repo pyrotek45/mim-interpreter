@@ -1,0 +1,1 @@
+smd loop&sho 1*_ &-&sho \this is a loop &-&mem 1*_&sub 1&var 1*_&emd&inp \how many loops? &var x&dot loop x :x &sho var

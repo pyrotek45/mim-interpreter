@@ -1,0 +1,16 @@
+mem 5
+add 5
+sho mem
+-
+mem 5
+sub 5
+sho mem
+-
+mem 5
+mul 5
+sho mem
+-
+mem 5
+div 5
+sho mem
+-
