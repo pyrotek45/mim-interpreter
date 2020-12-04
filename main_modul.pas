@@ -37,7 +37,7 @@ begin
             //writeln('FULL COMMAND: ',lowercase(command));
             mim.parse(lowercase(command));
             //mim.get_full_info;
-            SaveString(mim.variable_str,'mim_log.mh')
+            //SaveString(mim.variable_str,'mim_log.mh')
         end;
     end;
     //writeln(mim.get_memory: 0: 2);
