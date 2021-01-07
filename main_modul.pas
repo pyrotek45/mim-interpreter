@@ -28,6 +28,11 @@ var
     mim : mim_interpreter;
 begin
     mim := mim_interpreter.create;
+    if paramstr(1) = '' then
+    begin
+        writeln('no file: use mim <filename>');
+        exit;
+    end;
     Assignfile(setup_file, paramstr(1));
     reset(setup_file);
 
