@@ -22,7 +22,6 @@ begin
         readln(user); 
 
         case (user) of
-            'exit': exit;
             //'help': {*show help screen*};
             'reset' : 
                 begin
@@ -35,7 +34,7 @@ begin
             mim.parse(lowercase(user));
         end;
 
-    until (user = '');
+    until (lowercase(user) = 'exit');
 end;
 
 procedure SaveString(InString, OutFilePath: string);
