@@ -19,8 +19,6 @@
   - inp
   
 Helper commands:
-  - `-` (adds a new line)
-  - `_` (adds a space)
   - `#` (comment a line)
 
 
@@ -37,7 +35,7 @@ sho mem
 ```
  will output
  
- ``` 
+``` 
 5
 ```
 to the terminal.
@@ -49,7 +47,7 @@ of the `mem` registor and create a variable with that value.
 ```
 mem 5
 sho mem
--
+
 var x
 sho x
 ```
@@ -61,8 +59,7 @@ sho x
 ```
 to the terminal.
 
-Notice how the `mem` and the `x` variable are the same? That is becuase the `mem` register was not changed after setting it to 5. The helper command `-`
-lets up print the variable `x` on a newline. 
+Notice how the `mem` and the `x` variable are the same? That is becuase the `mem` register was not changed after setting it to 5.
 
 >If the variable already exist, it will overwrite the old value.
 
@@ -73,19 +70,18 @@ These commands are used to do operations on the `mem` register. They will take t
 mem 5
 add 5
 sho mem
--
+
 mem 5
 sub 5
 sho mem
--
+
 mem 5
 mul 5
 sho mem
--
+
 mem 5
 div 5
 sho mem
--
 ```
  will output
  
@@ -141,14 +137,13 @@ var x
 mem 0
 swp x
 sho mem
--
+
 sho x
--
 
 mem 10
 swp y
 sho mem
--
+
 sho y
 ```
  will output
@@ -161,8 +156,6 @@ sho y
  to the terminal.
  
  notice how the variable `y` was not cerated with the `var` command? Thats because `swp` created it on the fly.
- 
- 
  
 
 # con (condition) (variable,integer)
@@ -178,11 +171,11 @@ The `con` command will compare the current value stored in the `mem` register to
 mem 5
 con = 5
 sho \hello world!
--
+
 mem 5
 con = 10
 sho \you cant see me!
--
+
 con true
 
 mem 10

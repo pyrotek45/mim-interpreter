@@ -318,23 +318,17 @@ begin
         else 
           write(ExtractWord(x, command, ['\']))
         end;
+        writeln();
         exit;
     end;
 
     case parameter_1 of
         'var': self.get_variables;
-        'mem': write(self.memory:0:0);
-        '-': writeln();
-        '_': write(' ');
+        'mem': writeln(self.memory:0:0);
         'mod': for s in self.functions do writeln(s);
-        'all': 
-        for i := 0 to self.variables.Count - 1 do begin
-            if ansistartstext(parameter_2,self.variables.getkey(i)) then
-                writeln(self.variables.getkey(i), ' : ', self.variables.getdata(i):0:1);
-        end;
     else
         if self.variables.indexof(parameter_1) >= 0 then begin
-            write(self.variables.getdata(variables.indexof(parameter_1)):0:0);
+            writeln(self.variables.getdata(variables.indexof(parameter_1)):0:0);
         end;
 
         if self.function_modules.indexof(parameter_1) >= 0 then begin
@@ -682,8 +676,6 @@ begin
                   'rnd': self._rnd(command);
                   'get': self._get(command);
                   'inp': self._inp(command);
-                  '-'  : writeln();
-                  '_'  : write(' ');
                   '#' : //skip comments;
               end;
               // parsing functions

@@ -8,6 +8,36 @@ uses
     crt,
     modul_interpreter;
 
+procedure repl;
+var
+    user : string;
+    mim : mim_interpreter;
+begin
+    mim := mim_interpreter.create;
+
+    writeln('type exit to close the program');
+    writeln('type reset to clear mim');
+    repeat 
+        write('>> ');
+        readln(user); 
+
+        case (user) of
+            'exit': exit;
+            //'help': {*show help screen*};
+            'reset' : 
+                begin
+                    mim.free;
+                    mim := mim_interpreter.create;
+                end;
+        end;
+
+        if not (user = '') then begin
+            mim.parse(lowercase(user));
+        end;
+
+    until (user = '');
+end;
+
 procedure SaveString(InString, OutFilePath: string);
 var
     F: TextFile;
@@ -27,12 +57,16 @@ var
     I : integer;
     mim : mim_interpreter;
 begin
-    mim := mim_interpreter.create;
+
     if paramstr(1) = '' then
     begin
-        writeln('no file: use mim <filename>');
+        //writeln('no file: use mim <filename>');
+        repl;
         exit;
     end;
+
+    mim := mim_interpreter.create;
+
     Assignfile(setup_file, paramstr(1));
     reset(setup_file);
 
@@ -45,6 +79,7 @@ begin
             //SaveString(mim.variable_str,'mim_log.mh')
         end;
     end;
+
     //writeln(mim.get_memory: 0: 2);
 
     CloseFile(setup_file);

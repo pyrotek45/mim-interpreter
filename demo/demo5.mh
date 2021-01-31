@@ -1,11 +1,11 @@
 mem 5
 con = 5
 sho \hello world!
--
+
 mem 5
 con = 10
 sho \you cant see me!
--
+
 con true
 
 mem 10
