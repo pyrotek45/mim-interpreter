@@ -227,7 +227,8 @@ to the terminal.
 
 Mim will the parse the commands in that module as if to replace the call itself, with the commands. 
 
-> It is possible to create loops by calling a module from within itself. beware though, and > make sure you have a base case in order for the looping to stop.
+>It is possible to create loops by calling a module from within itself. beware though, and 
+>make sure you have a base case in order for the looping to stop.
 
 Notice how you can directly call a module name? 
 
@@ -305,7 +306,6 @@ will display the commands stored in that module.
 You might have already seen me using `\` for strings like so.
 
 ```
-# setting up the variable
 sho \hello world!
 ```
 will output
