@@ -333,7 +333,7 @@ begin
 
         if self.function_modules.indexof(parameter_1) >= 0 then begin
             for s in self.function_modules[parameter_1] do begin
-                writeln('--', s);
+                writeln(s);
             end;
         end;
         exit;
