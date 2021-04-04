@@ -1,29 +1,31 @@
 
 # MIM-Interpreter
 -- List of commands
-  - mem 
-  - var
-  - add
-  - sub
-  - mul
-  - div
-  - swp
-  - con
-  - smd
-  - emd
-  - dot
-  - sho
-  - del
-  - rnd
-  - get
-  - inp
-  
+- mem 
+- var
+- add
+- sub
+- mul
+- div
+- swp
+- con
+- smd
+- emd
+- dot
+- sho
+
+- wip
+- del
+- rnd
+- get
+- inp
+
 Helper commands:
-  - `#` (comment a line)
+- `#` (comment a line)
 
 
 The mim-interpreter uses a single register known as `mem` to do it's calculations.
-most commands interact with a single parameter and the `mem` register.
+most commands interact with a single parameter and the `mem` register directly.
 
 # mem (variable,integer)
 The `mem` command is used to set the `mem` register. you can pass a variable 
@@ -33,8 +35,8 @@ or an integer.
 mem 5
 sho mem
 ```
- will output
- 
+will output
+
 ``` 
 5
 ```
@@ -51,9 +53,9 @@ sho mem
 var x
 sho x
 ```
- will output
- 
- ``` 
+will output
+
+``` 
 5
 5
 ```
@@ -83,9 +85,9 @@ mem 5
 div 5
 sho mem
 ```
- will output
- 
- ``` 
+will output
+
+``` 
 10
 0
 25
@@ -105,7 +107,7 @@ will output
 ```
 25
 ```
-to the terminal. Be aware that when creating a variable that it will use whatever is stored in the `mem` register.
+to the terminal. Be aware that when creating a variable, it will use whatever is stored in the `mem` register.
 
 >you can pass a variable that has not yet been created to these commands. 
 >it will create the variable on the fly with the current `mem` register and
@@ -146,17 +148,17 @@ sho mem
 
 sho y
 ```
- will output
- ```
- 5
- 0
- 0
- 10
- ```
- to the terminal.
- 
- notice how the variable `y` was not cerated with the `var` command? Thats because `swp` created it on the fly.
- 
+will output
+```
+5
+0
+0
+10
+```
+to the terminal.
+
+notice how the variable `y` was not created with the `var` command? Thats because `swp` created it on the fly.
+
 
 # con (condition) (variable,integer)
 The mim-interpreter has two states `condition: true` or `condition: false`.
@@ -197,4 +199,134 @@ con true
 
 This is usefull to make sure the code after gets executed.
 
-# wip
+# smd (module name) & emd 
+`smd` stands for "start module definition".
+`emd` stands for "end module definition".
+
+
+Mim does not have functions, but it does have Modules. Modules are a way to store commands 
+and access them with a name or call.
+
+The `smd` command will start recording a module with a list of commands.
+these commands will not be excecuted unless the module name is called.
+
+The `emd` command will stop recording, and start executing commands normally.
+
+```
+smd hello
+sho \hello world!
+emd
+
+hello
+```
+will output
+```
+hello world!
+```
+to the terminal.
+
+Mim will the parse the commands in that module as if to replace the call itself, with the commands. 
+
+> It is possible to create loops by calling a module from within itself. beware though, and > make sure you have a base case in order for the looping to stop.
+
+Notice how you can directly call a module name? 
+
+# dot (module) (variable)
+
+The `dot` command stands for "do over time". It takes in a module and a 
+variable. it will not work if you pass it a constant.
+
+The `dot` command will repeat the module commands UNTIL the value of the variable that was passed is equal to 0. Otherwise, it will repeat forever. Making sure the module will eventualy set the variable to zero is key to utilizing the `dot` command.
+
+```
+# setting up the variable
+mem 5
+var x
+
+# setting up the loop
+smd loop
+sho x
+sho \this is a loop 
+mem x
+sub 1
+var x
+emd
+
+# calling the module
+dot loop x :x 
+```
+will output
+```
+5
+this is a loop 
+4
+this is a loop 
+3
+this is a loop 
+2
+this is a loop 
+1
+this is a loop 
+
+```
+to the terminal.
+
+# sho (var,mod,variable, module,) or (strings and variables)
+
+The `sho` command is your tool to output data to the screen.
+Some words are `keywords`, and will display useful information when called.
+
+```
+sho var
+```
+
+will display all the variables currently in your mim instance and their values.
+
+```
+sho mod
+```
+
+will display all the modules stored inside your current instance of mim.
+
+```
+sho (variable)
+```
+
+will simply show the value of that variable
+
+and 
+
+```
+sho (module name)
+```
+
+will display the commands stored in that module.
+
+You might have already seen me using `\` for strings like so.
+
+```
+# setting up the variable
+sho \hello world!
+```
+will output
+```
+hello world!
+```
+to the terminal. sho works by splitting everyting on the right side of the first `\` by 
+other `\` symbols.
+
+This allows you to combine strings and variables to your output like so.
+
+```
+mem 5
+var x
+sho \x is \x\
+```
+will display
+
+```
+x is 5
+```
+to the terminal.
+
+If any string between two `\`, matches a variable name, it will display the value instead.

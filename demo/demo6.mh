@@ -1,0 +1,15 @@
+# setting up the variable
+mem 5
+var x
+
+# setting up the loop
+smd loop
+sho x
+sho \this is a loop 
+mem x
+sub 1
+var x
+emd
+
+# calling the module
+dot loop x :x 
