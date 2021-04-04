@@ -199,16 +199,25 @@ This is usefull to make sure the code after gets executed.\
 
 There are several (condition) test, one can do with the con command.
 
-`?`: will set the codition to be true if the variable passed in the parameter exist, otherwise it will set it to be false.
-`!`: will set the codition to be true if the mem register does NOT equal the parameter, else it will set it to be false.
-`=`: will set the codition to be true if the mem register is equal to the parameter, else it will set it to be false.
-`>`: will set the codition to be true if the mem register is greater than the paremeter, else it will set it to be false.
-`<`: will set the codition to be true if the mem register is less than the paremeter, else it will set it to be false.
-`>=`: will set the codition to be true if the mem register is greater than OR equal to the paremeter, else it will set it to be false.
-`<=`: will set the codition to be true if the mem register is less than OR equal to the paremeter, else it will set it to be false.
-`!>`: will set the codition to be true if the mem register is NOT greater than the paremeter, else it will set it to be false.
-`!<`: will set the codition to be true if the mem register is NOT less than the paremeter, else it will set it to be false.
-`true`: will set the codition to be true, regardless of its current condition. This always will make the condition true.
+- `?`: will set the codition to be true if the variable passed in the parameter exist, otherwise it will set it to be false.
+
+- `!`: will set the codition to be true if the mem register does NOT equal the parameter, else it will set it to be false.
+
+- `=`: will set the codition to be true if the mem register is equal to the parameter, else it will set it to be false.
+
+- `>`: will set the codition to be true if the mem register is greater than the paremeter, else it will set it to be false.
+
+- `<`: will set the codition to be true if the mem register is less than the paremeter, else it will set it 
+to be false.
+
+- `>=`: will set the codition to be true if the mem register is greater than OR equal to the paremeter, else it will set it to be false.
+
+- `<=`: will set the codition to be true if the mem register is less than OR equal to the paremeter, else it will set it to be false.
+
+- `!>`: will set the codition to be true if the mem register is NOT greater than the paremeter, else it will set it to be false.
+- `!<`: will set the codition to be true if the mem register is NOT less than the paremeter, else it will set it to be false.
+
+- `true`: will set the codition to be true, regardless of its current condition. This always will make the condition true.
 
 > IF the `con` command is passed a variable that is not yet defined to any other condition test, besides `?`, it WILL create the variable and set the condition to be true. The variable will have the same value as the mem register.
 
