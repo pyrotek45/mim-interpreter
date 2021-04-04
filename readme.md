@@ -276,7 +276,7 @@ var x
 emd
 
 # calling the module
-dot loop x :x 
+dot loop x 
 ```
 will output
 ```
