@@ -344,13 +344,103 @@ to the terminal.
 
 If any string between two `\`, matches a variable name, it will display the value instead.
 
-# sho (var,mod,variable, module,) or (strings and variables)
+# del (variable, module,) 
 
-The `sho` command is your tool to output data to the screen.
-Some words are `keywords`, and will display useful information when called.
+The `del` command is how you can delete variables or modules. It will do nothing if they do not yet exist.
 
 ```
-sho var
+mem 5
+var x
+del x
+sho x
 ```
 
-will display all the variables currently in your mim instance and their values.
+will display nothing.
+
+# rnd (variable or integer) 
+
+The `rnd` command is how you genorate random numbers in mim.
+
+```
+mem 0
+rnd 7
+sho mem
+```
+will set the mem register to a number between the current mem register and the value passed in the paramter.
+
+# inp \(prompt) 
+
+The `inp` command is how you get input during runtime. It can show a prompt by typing anything after the `\` symbol.
+
+```
+inp \how old are you?
+var age
+sho \you are \age\ years old!
+```
+It currently does not work the same way as the `sho` command, as it can not display variable values.
+
+# get (variable or integer)
+Before I explain how the `get` command works, I must first explain how to store extra parameters in mim using the `:` notation.
+
+
+```
+mem 5
+var x
+sho 1*_ :x
+```
+
+will display
+
+```
+5
+```
+in your terminal.
+
+There are two main things going on here, first, we store the value of `x` in the paremter list on the right using the `:` notation. Then we access that parameters value using `1*_`. In this scenerio, the the value of x is stored in a list called the `parameter list`. When used, a special variable called `pmc` is also created, that stores the current number of values that have been passed in. This variable can be changed and used, and its value will not be reset until a new list of parameters have been defined. The list can be accessed anytime after unless a new list has been created. setting new parameters will destroy the old ones.
+
+The `1` in the `1*_` notation, tells mim to get the first value stored in the parameter list and the underscore tells mim that we are looking in the parameter list for the value. This notation only works on variables that are passed in.
+
+The `*` symbal also has another use in mim. for instance `x*1` will be concatenated to `x1`. IF the string on the right side of the `*` is a variable, it will concatenate the value to the end of the left part.
+
+```
+mem 5
+var x
+mem 1
+var y
+mem 10
+var x1
+sho x*y
+```
+will display
+
+```
+10
+```
+
+becuase `x*y` was shorted to `x1`. This is also true for modules. 
+
+Now on to the `get` command. This will simply set the mem register to the value of the index passed into `get`
+
+```
+get 1 :5
+sho mem
+```
+will display
+```
+5
+```
+and 
+
+```
+mem 5
+var x
+get 1 :x
+sho mem
+```
+will also display
+```
+5
+```
+
+like wise you can pass a variable to `get` for the index. Using the special variable `pmc` is key to utilizing the parameter list feature.
+
