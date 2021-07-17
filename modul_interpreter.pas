@@ -254,6 +254,7 @@ var
     f : extended;
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' '])); 
 
     if ansistartstext('\',parameter_1) then exit;
@@ -276,6 +277,7 @@ procedure mim_interpreter._rnd(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' '])); 
 
     if ansistartstext('\',parameter_1) then exit;
@@ -357,6 +359,7 @@ procedure mim_interpreter._inp(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := extractword(2,command,['\']);
 
     // show prompt
@@ -373,6 +376,8 @@ procedure mim_interpreter._mem(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
+
     parameter_1 := self.load_array(extractword(2,command,[' ']));
 
     if ansistartstext('\',parameter_1) then exit;
