@@ -71,23 +71,19 @@ var
     i : integer;
     deci : boolean;
 begin
-    //writeln(data);
     deci := false;
     for i := 1 to length(data) do
     begin
         if (data[i] = '.') and (deci) then
         begin
-            //writeln('not a deci');
             exit(FALSE);
         end;
         if (not isdigit(data[i])) and not (data[i] = '.') then 
         begin
-            //writeln('false  ' + data[i]);
             exit(FALSE);
         end;
         if data[i] = '.' then deci := true
     end;
-    //writeln('true');
     exit(TRUE);
 end;
 
