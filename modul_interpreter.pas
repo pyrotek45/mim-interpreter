@@ -69,9 +69,25 @@ implementation
 function is_string_number(data:string):boolean;
 var
     i : integer;
+    deci : boolean;
 begin
+    //writeln(data);
+    deci := false;
     for i := 1 to length(data) do
-        if not isdigit(data[i]) then exit(FALSE);
+    begin
+        if (data[i] = '.') and (deci) then
+        begin
+            //writeln('not a deci');
+            exit(FALSE);
+        end;
+        if (not isdigit(data[i])) and not (data[i] = '.') then 
+        begin
+            //writeln('false  ' + data[i]);
+            exit(FALSE);
+        end;
+        if data[i] = '.' then deci := true
+    end;
+    //writeln('true');
     exit(TRUE);
 end;
 
@@ -324,7 +340,7 @@ begin
 
     case parameter_1 of
         'var': self.get_variables;
-        'mem': writeln(self.memory:0:0);
+        'mem': writeln(self.memory:0:2);
         'mod': for s in self.functions do writeln(s);
     else
         if self.variables.indexof(parameter_1) >= 0 then begin
