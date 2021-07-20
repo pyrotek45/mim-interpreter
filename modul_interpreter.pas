@@ -411,6 +411,7 @@ procedure mim_interpreter._add(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' ']));
 
     if ansistartstext('\',parameter_1) then exit;
@@ -430,6 +431,7 @@ procedure mim_interpreter._sub(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' ']));
 
     if ansistartstext('\',parameter_1) then exit;
@@ -449,6 +451,7 @@ procedure mim_interpreter._mul(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' ']));
 
     if ansistartstext('\',parameter_1) then exit;
@@ -468,6 +471,7 @@ procedure mim_interpreter._div(command: string);
 var
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' ']));
 
     if ansistartstext('\',parameter_1) then exit;
@@ -491,6 +495,7 @@ var
     temp: extended;
     parameter_1 : string;
 begin
+    if self.load_array(extractword(2,command,[' '])) = '' then exit;
     parameter_1 := self.load_array(extractword(2,command,[' ']));
 
     if ansistartstext('\',parameter_1) then exit;
