@@ -1,4 +1,4 @@
-program Mim;
+program mim;
 {$mode objfpc}{$H+}
 uses
   sysutils,
