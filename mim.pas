@@ -11,7 +11,7 @@ uses
 procedure repl;
 var
   user : string;
-  main : mim_interpreter;
+  main : mim_interpreter_unit;
 
 begin
   main := mim_interpreter.create;
