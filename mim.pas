@@ -6,12 +6,12 @@ uses
   fgl,
   classes,
   crt,
-  mim_interpreter;
+  mim_interpreter_unit;
 
 procedure repl;
 var
   user : string;
-  main : mim_interpreter_unit;
+  main : mim_interpreter;
 
 begin
   main := mim_interpreter.create;
