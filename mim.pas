@@ -69,5 +69,6 @@ begin
 
   //Free the interpreter from memory
   main.destroy;
+  source.destroy;
 
 end.
