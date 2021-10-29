@@ -1,4 +1,4 @@
-unit mim_interpreter;
+unit mim_interpreter_unit;
 {$mode objFPC}
 interface
 uses
