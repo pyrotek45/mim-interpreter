@@ -6,7 +6,7 @@ uses
   fgl,
   classes,
   crt,
-  modul_interpreter;
+  mim_interpreter;
 
 procedure repl;
 var
