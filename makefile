@@ -1,6 +1,6 @@
 make:
-	fpc -omim main_modul.pas 
-	cp mim /usr/bin
+	fpc -omim mim.pas 
 clean:
 	rm mim
-	rm /usr/bin/mim
+install:
+	cp mim /usr/bin	
